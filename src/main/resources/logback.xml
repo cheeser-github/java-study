@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"  ?>
+<configuration>
+    <!-- 输出到控制台 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- 输出的格式 -->
+        <encoder>
+            <!--%logger{23}的数字为限制字数，如果超过了这个限制就会缩写。com.pz.shiro.QuickStart为23字符，所以其可以输出，其他如果超过这个长度，就会缩写-->
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{23} - %msg%n</pattern>
+            <!--控制台不需要输入年月日;同时类包名不想简写-->
+<!--            <pattern>%d{HH:mm:ss.SSS} %-5level[%thread] %logger Line:%-3L - %msg%n</pattern>-->
+
+        </encoder>
+    </appender>
+
+    <!--输出错误日志 日志文件保存在项目相应的目录下-->
+    <appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 日志名称的格式 -->
+        <encoder>
+<!--            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>-->
+            <pattern>%d{HH:mm:ss.SSS}  %-5level  [  %thread  ]  %logger Line:%-3L - %msg[Console]%n</pattern>
+
+        </encoder>
+        <file>logs/error.log</file>
+        <!-- 配置滚动的策略 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/%d{yyyy-MM-dd}/error.log</fileNamePattern>
+            <!-- 保存的最长时间：天数 -->
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+
+    </appender>
+    <appender name="INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+<!--            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>-->
+            <pattern>%d{HH:mm:ss.SSS}  %-5level  [  %thread  ]  %logger Line:%-3L - %msg[Console]%n</pattern>
+
+        </encoder>
+        <file>logs/info.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/%d{yyyy-MM-dd}/XXXXMo.log</fileNamePattern>
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <!--可以修改成INFO，DEBUG等-->
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+
+    </appender>
+<!--    控制日志输出等级-->
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="ERROR" />
+        <appender-ref ref="INFO"/>
+    </root>
+</configuration>
