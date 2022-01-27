@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="shortcut icon" href="#"/>
+</head>
+<body>
+
+<!--引入js-->
+<!--这里引入百度的jquery，也就不需要我们手动导入呢-->
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<!--自定义发送请求的js-->
+<script type="text/javascript"  src="js/sendQuest.js"></script>
+
+<script>
+    <!--    调用ajax发送数据-->
+    // postRequest("login","postRequestTest");
+    $(document).ready(function(){
+
+        $("#submit").click(function (){
+            var username = $("#username").val()
+            var password = $("#password").val()
+            $.post("/login",
+                {
+                    username:username,
+                    password:password
+                },
+                function(data,status){
+                    if (status == "success"){
+                        // alert("token"+data);
+                        localStorage.setItem("shiro-token", data);
+                    }
+
+
+                });
+        })
+
+    });
+
+
+
+
+
+
+</script>
+
+
+    <form action="" method="">
+        <table>
+            <span th:text="${msg}" style="color: red"></span>
+            <tr>
+                <td>用户名：</td>
+                <td>
+                    <input type="text" name="username" id="username"/>
+                </td>
+            </tr>
+            <tr>
+                <td>密码：</td>
+                <td>
+                    <input type="password" name="password" id="password"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="登录" id="submit"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

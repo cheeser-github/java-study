@@ -1,11 +1,21 @@
+server:
+  port: 9999 #其他端口都行，6666端口不行
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: root
-    url: jdbc:mysql://localhost:3306/test?serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/javastudy_shiro?serverTimezone=UTC
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+shiro:
+  loginUrl: /   #未认证的用户会跳转到/,再到登录页面
 
-
+#初始化数据库的数据库名和数据库脚本文件名
+initDatabase:
+  initDatabaseName: "javastudy_shiro"
+  initDatabaseFileName: "javastudy-shiro"
