@@ -1,5 +1,6 @@
 package com.pz.shiro.controller;
 
+import com.pz.shiro.entity.Account;
 import com.pz.shiro.service.AccountService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -19,15 +20,15 @@ public class LoginController {
     /**
      * 对于只输入localhost:端口号的url 直接跳转到登录页面
      */
-    @GetMapping("/")
-    public String login(){
-        Subject loginUser = SecurityUtils.getSubject();
-        return "login";
-    }
+//    @GetMapping("/")
+//    public String login(){
+//        Subject loginUser = SecurityUtils.getSubject();
+//        return "login";
+//    }
 
     @GetMapping("/{page}")
     public String toPage(@PathVariable String page){
-        Subject loginUser = SecurityUtils.getSubject();
+            Subject loginUser = SecurityUtils.getSubject();
         return page;
     }
 
@@ -37,14 +38,18 @@ public class LoginController {
     @ResponseBody
     @PostMapping("/login")
     public String loginAction(String username, String password ){  //post请求用户名密码放请求体里这样也是可以拿到的
-        System.out.println("ajax数据" + username);
         Subject currentUser = SecurityUtils.getSubject();
         currentUser.login(new UsernamePasswordToken(username, password));
+        currentUser.getSession().setAttribute("account",currentUser.getPrincipal());  //Principal再realm中存入的
         return "token-abcdefg";
     }
 
-    @RequestMapping("/test")
-    public void test1(){
-        accountService.getById(1);
+
+    @RequestMapping("/logout")
+    public String logout(){
+        SecurityUtils.getSubject().logout();
+        return "login";
     }
+
+
 }

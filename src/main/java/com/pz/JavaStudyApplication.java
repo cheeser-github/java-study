@@ -57,12 +57,10 @@ public class JavaStudyApplication {
 
         DefaultShiroFilterChainDefinition chainDefinition = new DefaultShiroFilterChainDefinition();
 
+        chainDefinition.addPathDefinition("/login","anon");
         chainDefinition.addPathDefinition("/main", "authc");
         chainDefinition.addPathDefinition("/test1", "authc");
-
-        chainDefinition.addPathDefinition("/login.html", "anon"); // need to accept POSTs from the login form
-        chainDefinition.addPathDefinition("/logout", "logout");
-        chainDefinition.addPathDefinition("/**", "anon");  //一些静态资源需要放行
+        chainDefinition.addPathDefinition("/**", "authc");
         return chainDefinition;
     }
 
@@ -70,7 +68,6 @@ public class JavaStudyApplication {
     public Subject subject() {
         return SecurityUtils.getSubject();
     }
-
 
 
 }

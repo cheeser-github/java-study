@@ -11,7 +11,7 @@
 <!--这里引入百度的jquery，也就不需要我们手动导入呢-->
 <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 <!--自定义发送请求的js-->
-<script type="text/javascript"  src="js/sendQuest.js"></script>
+<!--<script type="text/javascript"  src="js/sendQuest.js"></script>-->
 
 <script>
     <!--    调用ajax发送数据-->
@@ -30,9 +30,8 @@
                     if (status == "success"){
                         // alert("token"+data);
                         localStorage.setItem("shiro-token", data);
+                        location.href = "index"   //登录成功后跳转到首页
                     }
-
-
                 });
         })
 
@@ -63,7 +62,8 @@
             </tr>
             <tr>
                 <td>
-                    <input type="submit" value="登录" id="submit"/>
+                    <!--注意，上面用ajax绑定这个按钮发送请求，这里就不能用submit按钮了，而应该用不用button，不然会发送两个请求 -->
+                    <input type="button" value="登录" id="submit"/>
                 </td>
             </tr>
         </table>

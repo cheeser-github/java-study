@@ -13,7 +13,7 @@ mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 shiro:
-  loginUrl: /   #未认证的用户会跳转到/,再到登录页面
+  loginUrl: /login   #未认证的用户跳转到登录页面
 
 #初始化数据库的数据库名和数据库脚本文件名
 initDatabase:
